@@ -1,0 +1,22 @@
+# dependencies
+node_modules
+
+# expo
+.expo
+.expo-shared
+
+# native builds
+android
+ios
+
+# assets (IMPORTANT)
+assets
+**/*.png
+**/*.jpg
+**/*.jpeg
+**/*.webp
+**/*.gif
+
+# builds
+dist
+build
