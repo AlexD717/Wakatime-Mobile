@@ -1,3 +1,4 @@
+import { getWakatimeStats } from "@/utils/wakatimeService";
 import { View } from "react-native";
 import { deleteApiKey } from "../../utils/authStorage";
 
@@ -17,6 +18,10 @@ export default function SettingsScreen() {
     <View style={styles.container}>
       <Text variant="title">Settings Screen</Text>
       <Button title="Remove API Key" onPress={handleRemoveApiKey} />
+      <Button
+        title="Test Wakatime Connection"
+        onPress={() => getWakatimeStats("last_7_days")}
+      />
     </View>
   );
 }
