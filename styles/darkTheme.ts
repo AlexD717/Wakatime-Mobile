@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
   /* Layout */
   container: {
     flex: 1,
-    backgroundColor: "#0f172a",
+    backgroundColor: "#081024ff",
     justifyContent: "center",
     alignItems: "center",
     padding: 16,
@@ -81,7 +81,7 @@ export const styles = StyleSheet.create({
   /* Inputs */
   input: {
     backgroundColor: "#020617",
-    color: "#f8fafc",
+    color: "#aeaeaeff",
     borderWidth: 1,
     borderColor: "#1e293b",
     borderRadius: 8,
@@ -89,5 +89,6 @@ export const styles = StyleSheet.create({
     width: "100%",
     marginBottom: 16,
     userSelect: "contain",
+    maxWidth: 400,
   },
 });
