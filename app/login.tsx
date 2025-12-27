@@ -15,7 +15,6 @@ export default function Login() {
   const handleLogin = async () => {
     if (!apiKey) return;
     setIsLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate a network request
     await saveApiKey(apiKey);
     router.replace("/(tabs)");
   };

@@ -5,7 +5,6 @@ import { StatsRange } from "@/utils/wakatime";
 import { PieChart } from "react-native-chart-kit";
 import { Button, Text } from "../../components";
 import { styles } from "../../styles/darkTheme";
-import { showAlert } from "../../utils/alert";
 import * as wakatimeService from "../../utils/wakatimeService";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
@@ -20,8 +19,8 @@ export default function HomeScreen() {
     try {
       const wakatimeData = await wakatimeService.getWakatimeStats(range);
       setStats(wakatimeData);
-    } catch (error) {
-      showAlert("Failed to fetch Wakatime stats", String(error));
+    } catch {
+      // Error handled in wakatime.ts
     } finally {
       setLoading(false);
     }

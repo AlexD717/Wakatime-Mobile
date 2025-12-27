@@ -21,7 +21,6 @@ export const fetchUserData = async (apiKey: string, range: StatsRange) => {
     });
 
     if (!response.ok) {
-      showAlert("Error fetching user data", response.statusText);
       throw new Error(`Error fetching user data: ${response.statusText}`);
     }
 

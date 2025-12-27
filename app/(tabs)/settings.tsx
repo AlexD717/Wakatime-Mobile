@@ -2,6 +2,7 @@ import { getWakatimeStats } from "@/utils/wakatimeService";
 import { View } from "react-native";
 import { deleteApiKey } from "../../utils/authStorage";
 
+import { showAlert } from "@/utils/alert";
 import { useRouter } from "expo-router";
 import { Button, Text } from "../../components";
 import { styles } from "../../styles/darkTheme";
@@ -14,13 +15,22 @@ export default function SettingsScreen() {
     router.replace("/login" as any);
   };
 
+  const testWakatimeConnection = async () => {
+    try {
+      await getWakatimeStats("last_7_days");
+      showAlert("Success", "Wakatime connection successful!");
+    } catch {
+      // Error handled in wakatime.ts
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text variant="title">Settings Screen</Text>
       <Button title="Remove API Key" onPress={handleRemoveApiKey} />
       <Button
         title="Test Wakatime Connection"
-        onPress={() => getWakatimeStats("last_7_days")}
+        onPress={testWakatimeConnection}
       />
     </View>
   );
