@@ -3,7 +3,7 @@ import { Text as RNText, TextProps } from "react-native";
 import { styles } from "../styles/darkTheme";
 
 type AppTextProps = TextProps & {
-  variant?: "title" | "body";
+  variant?: "title" | "body" | "cardTitle";
 };
 
 export function Text({ variant = "body", style, ...props }: AppTextProps) {
@@ -12,6 +12,9 @@ export function Text({ variant = "body", style, ...props }: AppTextProps) {
   switch (variant) {
     case "title":
       baseStyle = styles.title;
+      break;
+    case "cardTitle":
+      baseStyle = styles.cardTitle;
       break;
   }
 

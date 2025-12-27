@@ -26,7 +26,6 @@ export const fetchUserData = async (apiKey: string, range: StatsRange) => {
     }
 
     const json = await response.json();
-    showAlert("fetchUserData data", JSON.stringify(json.data, null, 2));
     return json.data;
   } catch (error) {
     showAlert("fetchUserData error", String(error));

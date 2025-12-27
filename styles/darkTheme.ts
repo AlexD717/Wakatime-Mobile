@@ -24,6 +24,12 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
     userSelect: "none",
   },
+  cardTitle: {
+    color: "#f8fafc",
+    fontSize: 18,
+    marginBottom: 10,
+    userSelect: "none",
+  },
   link: {
     color: "#06275cff",
     textDecorationLine: "underline",
