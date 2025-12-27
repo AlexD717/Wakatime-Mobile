@@ -1,0 +1,41 @@
+// constants/languages.js
+
+export const LANGUAGE_COLORS = {
+  JavaScript: "#F7DF1E",
+  TypeScript: "#3178C6",
+  Python: "#3776AB",
+  Java: "#007396",
+  HTML: "#E34F26",
+  CSS: "#1572B6",
+  React: "#61DAFB",
+  "Vue.js": "#4FC08D",
+  "C#": "#239120",
+  "C++": "#de00d3ff",
+  C: "#A8B9CC",
+  Go: "#00ADD8",
+  Rust: "#DEA584",
+  Swift: "#F05138",
+  Kotlin: "#A97BFF",
+  PHP: "#777BB4",
+  Ruby: "#CC342D",
+  Dart: "#0175C2",
+  SQL: "#CC2927",
+  JSON: "#4d4d4dff",
+  Markdown: "#888888",
+  Onshape: "#40AA1D",
+  Fusion: "#FF6B00",
+  Other: "#C0C0C0",
+};
+
+export const FALLBACK_COLORS = [
+  "#FF6384",
+  "#36A2EB",
+  "#FFCE56",
+  "#4BC0C0",
+  "#9966FF",
+  "#FF9F40",
+  "#E74C3C",
+  "#2ECC71",
+  "#F39C12",
+  "#8E44AD",
+];
