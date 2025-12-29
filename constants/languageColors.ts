@@ -1,5 +1,3 @@
-// constants/languages.js
-
 export const LANGUAGE_COLORS = {
   JavaScript: "#F7DF1E",
   TypeScript: "#3178C6",
@@ -23,7 +21,7 @@ export const LANGUAGE_COLORS = {
   JSON: "#4d4d4dff",
   Markdown: "#888888",
   Onshape: "#40AA1D",
-  Fusion: "#FF6B00",
+  Fusion360: "#FF6B00",
   Other: "#C0C0C0",
 };
 

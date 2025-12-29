@@ -9,6 +9,17 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     padding: 16,
   },
+  rowContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
+    marginBottom: 16,
+  },
+  pickerWrapper: {
+    flex: 1,
+    marginLeft: 12,
+  },
 
   /* Text */
   title: {
@@ -96,5 +107,22 @@ export const styles = StyleSheet.create({
     marginBottom: 16,
     userSelect: "contain",
     maxWidth: 400,
+  },
+
+  /* Dropdown */
+  dropdown: {
+    flex: 1,
+    height: 50,
+    backgroundColor: "#020617",
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: "#1e293b",
+    paddingHorizontal: 12,
+  },
+  popupContainer: {
+    backgroundColor: "#020617",
+    borderColor: "#1e293b",
+    borderWidth: 1,
+    borderRadius: 12,
   },
 });

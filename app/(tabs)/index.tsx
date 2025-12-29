@@ -1,11 +1,11 @@
 import * as wakatimeService from "../../utils/wakatimeService";
 
+import { StatsRange } from "@/utils/wakatime";
 import React, { useCallback, useEffect, useState } from "react";
 import { ActivityIndicator, Dimensions, View } from "react-native";
-
-import { StatsRange } from "@/utils/wakatime";
 import { PieChart } from "react-native-chart-kit";
-import { Button, Text } from "../../components";
+import { Dropdown } from "react-native-element-dropdown";
+import { Text } from "../../components";
 import {
   FALLBACK_COLORS,
   LANGUAGE_COLORS,
@@ -13,6 +13,13 @@ import {
 import { styles } from "../../styles/darkTheme";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
+
+const RANGE_OPTIONS: { label: string; value: StatsRange }[] = [
+  { label: "Today", value: "today" },
+  { label: "Last 7 Days", value: "last_7_days" },
+  { label: "Last 30 Days", value: "last_30_days" },
+  { label: "Last 6 Months", value: "last_6_months" },
+];
 
 export default function HomeScreen() {
   const [range, setRange] = React.useState<StatsRange>("last_7_days");
@@ -62,7 +69,30 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Button title="Refresh Data" onPress={loadData} />
+      {/* Range Selection Picker */}
+      <View style={styles.rowContainer}>
+        <Text variant="title" style={{ marginRight: 12 }}>
+          Select Range:
+        </Text>
+        <Dropdown
+          style={styles.dropdown}
+          containerStyle={styles.popupContainer}
+          placeholderStyle={styles.text}
+          selectedTextStyle={styles.text}
+          itemTextStyle={styles.text}
+          activeColor="#042f8bff"
+          data={RANGE_OPTIONS}
+          labelField="label"
+          valueField="value"
+          value={range}
+          onChange={item => {
+            setRange(item.value);
+          }}
+        />
+      </View>
+
+      {/* Button to Refresh Data */}
+      {/*(<Button title="Refresh Data" onPress={loadData} />)*/}
 
       {/* Language Pie Chart Graph */}
       {languagePieChart && languagePieChart.length > 0 && (
