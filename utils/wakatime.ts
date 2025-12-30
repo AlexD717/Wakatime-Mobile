@@ -16,14 +16,34 @@ export type StatsRange =
   | "today"
   | "last_7_days"
   | "last_30_days"
-  | "last_6_months";
+  | "last_6_months"
+  | "last_year";
 
+const toISODate = (date: Date): string => {
+  const offset = date.getTimezoneOffset();
+  const localDate = new Date(date.getTime() - offset * 60 * 1000);
+  return localDate.toISOString().split("T")[0];
+};
 export const fetchUserData = async (apiKey: string, range: StatsRange) => {
   try {
-    if (range === "today") {
-      const today = new Date().toISOString().split("T")[0];
+    // For short ranges use the summaries endpoint. It updates quicker and gives more control
+    if (range === "today" || range === "last_7_days") {
+      const startDate = new Date();
+      const endDate = new Date();
+
+      switch (range) {
+        case "today":
+          break;
+        case "last_7_days":
+          startDate.setDate(endDate.getDate() - 6);
+          break;
+      }
+
+      const startStr = toISODate(startDate);
+      const endStr = toISODate(endDate);
+
       const response = await fetch(
-        `${BASE_URL}/users/current/summaries?start=${today}&end=${today}`,
+        `${BASE_URL}/users/current/summaries?start=${startStr}&end=${endStr}`,
         {
           headers: getAuthenticationHeader(apiKey),
         },
@@ -37,6 +57,7 @@ export const fetchUserData = async (apiKey: string, range: StatsRange) => {
       return transformSummariesToStats(json.data);
     }
 
+    // For long ranger use the stats endpoint - it is available for all users
     const response = await fetch(`${BASE_URL}/users/current/stats/${range}`, {
       headers: getAuthenticationHeader(apiKey),
     });

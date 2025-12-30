@@ -19,6 +19,7 @@ const RANGE_OPTIONS: { label: string; value: StatsRange }[] = [
   { label: "Last 7 Days", value: "last_7_days" },
   { label: "Last 30 Days", value: "last_30_days" },
   { label: "Last 6 Months", value: "last_6_months" },
+  { label: "Last Year", value: "last_year" },
 ];
 
 export default function HomeScreen() {
