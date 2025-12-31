@@ -21,6 +21,7 @@ const RANGE_OPTIONS: { label: string; value: StatsRange }[] = [
   { label: "Last 30 Days", value: "last_30_days" },
   { label: "Last 6 Months", value: "last_6_months" },
   { label: "Last Year", value: "last_year" },
+  { label: "All Time", value: "all_time" },
 ];
 
 export default function HomeScreen() {
@@ -82,24 +83,10 @@ export default function HomeScreen() {
   }
 
   return (
-    <View style={(styles.container, { flex: 1 })}>
+    <View style={styles.container}>
       <ScrollView
-        style={
-          (styles.container,
-          {
-            flex: 1,
-            width: "100%",
-            backgroundColor: "#081024ff",
-          })
-        }
-        contentContainerStyle={{
-          paddingTop: 20,
-          paddingRight: 20,
-          paddingLeft: 20,
-          paddingBottom: 20,
-          flexGrow: 1,
-          alignItems: "center",
-        }}
+        style={(styles.container, styles.scrollView)}
+        contentContainerStyle={styles.contentContainerStyle}
         showsVerticalScrollIndicator={false}
       >
         {/* Range Selection Picker */}

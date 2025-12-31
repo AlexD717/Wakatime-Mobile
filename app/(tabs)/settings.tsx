@@ -4,7 +4,7 @@ import { deleteApiKey } from "../../utils/authStorage";
 
 import { showAlert } from "@/utils/alert";
 import { useRouter } from "expo-router";
-import { Button, Text } from "../../components";
+import { Button } from "../../components";
 import { styles } from "../../styles/darkTheme";
 
 export default function SettingsScreen() {
@@ -26,7 +26,6 @@ export default function SettingsScreen() {
 
   return (
     <View style={styles.container}>
-      <Text variant="title">Settings Screen</Text>
       <Button title="Remove API Key" onPress={handleRemoveApiKey} />
       <Button
         title="Test Wakatime Connection"

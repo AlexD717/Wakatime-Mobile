@@ -20,6 +20,19 @@ export const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 12,
   },
+  scrollView: {
+    width: "100%",
+    flex: 1,
+    backgroundColor: "#081024ff",
+  },
+  contentContainerStyle: {
+    paddingTop: 20,
+    paddingRight: 20,
+    paddingLeft: 20,
+    paddingBottom: 20,
+    flexGrow: 1,
+    alignItems: "center",
+  },
 
   /* Text */
   title: {
@@ -93,6 +106,16 @@ export const styles = StyleSheet.create({
     padding: 16,
     width: "100%",
     marginVertical: 8,
+  },
+  projectCard: {
+    backgroundColor: "#0a1a2eff",
+    borderRadius: 12,
+    padding: 16,
+    width: "100%",
+    minWidth: "100%",
+    marginBottom: 12,
+    outlineColor: "#1e293b",
+    outlineWidth: 2,
   },
 
   /* Inputs */

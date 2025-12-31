@@ -17,13 +17,15 @@ export type StatsRange =
   | "last_7_days"
   | "last_30_days"
   | "last_6_months"
-  | "last_year";
+  | "last_year"
+  | "all_time";
 
 const toISODate = (date: Date): string => {
   const offset = date.getTimezoneOffset();
   const localDate = new Date(date.getTime() - offset * 60 * 1000);
   return localDate.toISOString().split("T")[0];
 };
+
 export const fetchUserData = async (apiKey: string, range: StatsRange) => {
   try {
     // For short ranges use the summaries endpoint. It updates quicker and gives more control
@@ -76,11 +78,17 @@ export const fetchUserData = async (apiKey: string, range: StatsRange) => {
 
 const transformSummariesToStats = (summaries: any[]) => {
   const languageMap = new Map<string, number>();
+  const projectsMap = new Map<string, number>();
 
   summaries.forEach(day => {
     day.languages?.forEach((lang: any) => {
       const current = languageMap.get(lang.name) || 0;
       languageMap.set(lang.name, current + lang.total_seconds);
+    });
+
+    day.projects?.forEach((proj: any) => {
+      const current = projectsMap.get(proj.name) || 0;
+      projectsMap.set(proj.name, current + proj.total_seconds);
     });
   });
 
@@ -88,5 +96,9 @@ const transformSummariesToStats = (summaries: any[]) => {
     .map(([name, total_seconds]) => ({ name, total_seconds }))
     .sort((a, b) => b.total_seconds - a.total_seconds);
 
-  return { languages };
+  const projects = Array.from(projectsMap.entries())
+    .map(([name, total_seconds]) => ({ name, total_seconds }))
+    .sort((a, b) => b.total_seconds - a.total_seconds);
+
+  return { languages, projects };
 };
