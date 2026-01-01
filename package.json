@@ -10,7 +10,8 @@
     "web": "expo start --web",
     "lint": "expo lint",
     "format": "prettier --check \"**/*.{js,jsx,ts,tsx}\"",
-    "format:fix": "prettier --write \"**/*.{js,jsx,ts,tsx}\""
+    "format:fix": "prettier --write \"**/*.{js,jsx,ts,tsx}\"",
+    "build": "eas build --platform android --profile preview"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
