@@ -28,7 +28,7 @@ const toISODate = (date: Date): string => {
 
 export const fetchUserData = async (apiKey: string, range: StatsRange) => {
   try {
-    // For short ranges use the summaries endpoint. It updates quicker and gives more control
+    // For short ranges use the summaries endpoint. It updates quicker
     if (range === "today" || range === "last_7_days") {
       const startDate = new Date();
       const endDate = new Date();
@@ -60,16 +60,36 @@ export const fetchUserData = async (apiKey: string, range: StatsRange) => {
     }
 
     // For long ranger use the stats endpoint - it is available for all users
-    const response = await fetch(`${BASE_URL}/users/current/stats/${range}`, {
-      headers: getAuthenticationHeader(apiKey),
-    });
+    let isCompiling: boolean = true;
+    let attempts: number = 0;
+    const maxAttempts = 5;
+    const secondsBetweenAttempts = 1000;
 
-    if (!response.ok) {
-      throw new Error(`Error fetching user data: ${response.statusText}`);
+    while (isCompiling && attempts < maxAttempts) {
+      const response = await fetch(`${BASE_URL}/users/current/stats/${range}`, {
+        headers: getAuthenticationHeader(apiKey),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error fetching user data: ${response.statusText}`);
+      }
+
+      const json = await response.json();
+      if (response.status === 202) {
+        attempts++;
+        await new Promise(resolve =>
+          setTimeout(resolve, secondsBetweenAttempts),
+        );
+      } else {
+        isCompiling = false;
+        return json.data;
+      }
     }
 
-    const json = await response.json();
-    return json.data;
+    showAlert(
+      "Fetch Data Timeout",
+      "Wakatime is taking to long to compile, please try again later",
+    );
   } catch (error) {
     showAlert("fetchUserData error", String(error));
     throw error;
