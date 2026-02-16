@@ -16,4 +16,4 @@ _Please note, that this app isn't compatible with Hackatime, only WakaTime_
 - Customizable time ranges
 
 ## AI Disclosure
-AI was used for documentation help, debugging, and some of the images.
+AI was used for documentation help and debugging.
