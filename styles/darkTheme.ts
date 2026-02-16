@@ -33,6 +33,9 @@ export const styles = StyleSheet.create({
     flexGrow: 1,
     alignItems: "center",
   },
+  refreshControlStyle: {
+    color: "#1ca7e3",
+  },
 
   /* Text */
   title: {
