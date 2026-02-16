@@ -3,7 +3,13 @@ import * as wakatimeService from "../../utils/wakatimeService";
 import { hoursMinutesTimeFormat } from "@/utils/timeFormatter";
 import { StatsRange } from "@/utils/wakatime";
 import React, { useCallback, useEffect, useState } from "react";
-import { ActivityIndicator, Dimensions, ScrollView, View } from "react-native";
+import {
+  ActivityIndicator,
+  Dimensions,
+  RefreshControl,
+  ScrollView,
+  View,
+} from "react-native";
 import { PieChart } from "react-native-chart-kit";
 import { Dropdown } from "react-native-element-dropdown";
 import { Text } from "../../components";
@@ -28,22 +34,37 @@ export default function HomeScreen() {
   const [range, setRange] = React.useState<StatsRange>("last_7_days");
   const [stats, setStats] = useState<any>(null);
   const [loading, setLoading] = React.useState(false);
+  const [refreshing, setRefreshing] = React.useState(false);
 
-  const loadData = useCallback(async () => {
-    setLoading(true);
-    try {
-      const wakatimeData = await wakatimeService.getWakatimeStats(range);
-      setStats(wakatimeData);
-    } catch {
-      // Error handled in wakatime.ts
-    } finally {
-      setLoading(false);
-    }
-  }, [range]);
+  const loadData = useCallback(
+    async (isRefershing = false) => {
+      if (!isRefershing) {
+        setLoading(true);
+      }
+
+      try {
+        const wakatimeData = await wakatimeService.getWakatimeStats(range);
+        setStats(wakatimeData);
+      } catch {
+        // Error handled in wakatime.ts
+      } finally {
+        if (!isRefershing) {
+          setLoading(false);
+        }
+      }
+    },
+    [range],
+  );
 
   useEffect(() => {
     loadData();
   }, [loadData]);
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await loadData(true);
+    setRefreshing(false);
+  };
 
   // Calculate total time
   const totalSeconds =
@@ -85,9 +106,18 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <ScrollView
-        style={(styles.container, styles.scrollView)}
+        style={styles.scrollView}
         contentContainerStyle={styles.contentContainerStyle}
         showsVerticalScrollIndicator={false}
+        alwaysBounceVertical={true}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor={styles.refreshControlStyle.color}
+            colors={[styles.refreshControlStyle.color]}
+          />
+        }
       >
         {/* Range Selection Picker */}
         <View style={styles.rowContainer}>

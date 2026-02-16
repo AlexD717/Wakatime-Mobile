@@ -22,6 +22,7 @@ export const LANGUAGE_COLORS = {
   Markdown: "#888888",
   Onshape: "#40AA1D",
   Fusion360: "#FF6B00",
+  Slack: "#F3B72E",
   Other: "#C0C0C0",
 };
 
