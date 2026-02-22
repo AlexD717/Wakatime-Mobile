@@ -57,7 +57,7 @@ export default function RootLayout() {
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <ActivityIndicator
           size="large"
-          color={styles.refreshControlStyle.color}
+          color={styles.activityIndicator.color}
         />
       </View>
     );

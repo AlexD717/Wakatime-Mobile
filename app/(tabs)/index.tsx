@@ -1,7 +1,6 @@
-import * as wakatimeService from "../../utils/wakatimeService";
-
 import { hoursMinutesTimeFormat } from "@/utils/timeFormatter";
 import { StatsRange } from "@/utils/wakatime";
+import { getWakatimeStats } from "@/utils/wakatimeService";
 import React, { useCallback, useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -37,18 +36,18 @@ export default function HomeScreen() {
   const [refreshing, setRefreshing] = React.useState(false);
 
   const loadData = useCallback(
-    async (isRefershing = false) => {
-      if (!isRefershing) {
+    async (isRefreshing = false) => {
+      if (!isRefreshing) {
         setLoading(true);
       }
 
       try {
-        const wakatimeData = await wakatimeService.getWakatimeStats(range);
+        const wakatimeData = await getWakatimeStats(range);
         setStats(wakatimeData);
       } catch {
         // Error handled in wakatime.ts
       } finally {
-        if (!isRefershing) {
+        if (!isRefreshing) {
           setLoading(false);
         }
       }
@@ -98,7 +97,10 @@ export default function HomeScreen() {
   if (loading) {
     return (
       <View style={styles.container}>
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator
+          size="large"
+          color={styles.activityIndicator.color}
+        />
       </View>
     );
   }
@@ -114,8 +116,8 @@ export default function HomeScreen() {
           <RefreshControl
             refreshing={refreshing}
             onRefresh={onRefresh}
-            tintColor={styles.refreshControlStyle.color}
-            colors={[styles.refreshControlStyle.color]}
+            tintColor={styles.activityIndicator.color}
+            colors={[styles.activityIndicator.color]}
           />
         }
       >
@@ -140,9 +142,6 @@ export default function HomeScreen() {
             }}
           />
         </View>
-
-        {/* Button to Refresh Data */}
-        {/*(<Button title="Refresh Data" onPress={loadData} />)*/}
 
         {/* Total Time Spent */}
         <View style={styles.card}>

@@ -17,7 +17,7 @@ export default function SettingsScreen() {
 
   const testWakatimeConnection = async () => {
     try {
-      await getWakatimeStats("last_7_days");
+      await getWakatimeStats("today");
       showAlert("Success", "Wakatime connection successful!");
     } catch {
       // Error handled in wakatime.ts

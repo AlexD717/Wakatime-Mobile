@@ -33,7 +33,7 @@ export const styles = StyleSheet.create({
     flexGrow: 1,
     alignItems: "center",
   },
-  refreshControlStyle: {
+  activityIndicator: {
     color: "#1ca7e3",
   },
 
