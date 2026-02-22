@@ -1,4 +1,10 @@
-import { Stack, useRouter, useSegments } from "expo-router";
+import { styles } from "@/styles/darkTheme";
+import {
+  Stack,
+  useRootNavigationState,
+  useRouter,
+  useSegments,
+} from "expo-router";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { getApiKey } from "../utils/authStorage";
@@ -9,6 +15,8 @@ export default function RootLayout() {
 
   const router = useRouter();
   const segments = useSegments();
+
+  const navigationState = useRootNavigationState();
 
   useEffect(() => {
     const checkAuthentication = async () => {
@@ -21,7 +29,7 @@ export default function RootLayout() {
   }, []);
 
   useEffect(() => {
-    if (isLoading) {
+    if (isLoading || !navigationState?.key) {
       return;
     }
 
@@ -42,12 +50,15 @@ export default function RootLayout() {
     };
 
     recheckAuth();
-  }, [userKey, isLoading, segments, router]);
+  }, [userKey, isLoading, segments, router, navigationState?.key]);
 
   if (isLoading) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size="large" />
+        <ActivityIndicator
+          size="large"
+          color={styles.refreshControlStyle.color}
+        />
       </View>
     );
   }
